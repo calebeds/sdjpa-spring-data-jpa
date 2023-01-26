@@ -24,7 +24,7 @@ public class AuthorDaoImpl implements AuthorDao {
 
     @Override
     public Author findAuthorByName(String firstName, String lastName) {
-        return null;
+        return this.authorRepository.findAuthorByFirstNameAndLastName(firstName, lastName);
     }
 
     @Override
