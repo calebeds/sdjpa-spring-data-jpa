@@ -12,6 +12,7 @@ import java.util.concurrent.Future;
 import java.util.stream.Stream;
 
 public interface BookRepository extends JpaRepository<Book, Long> {
+    Book jpaNamed(@Param("title") String title);
 
     @Query(value = "SELECT * FROM book WHERE title = :title", nativeQuery = true)
     Book findBookByTitleNativeQuery(@Param("title") String title);
