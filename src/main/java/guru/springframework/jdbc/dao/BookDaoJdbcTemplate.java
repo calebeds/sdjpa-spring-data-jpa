@@ -14,13 +14,19 @@ public class BookDaoJdbcTemplate implements BookDao {
     }
 
     @Override
-    public Book getById(Long id) {
-        return this.jdbcTemplate.queryForObject("SELECT * FROM book WHERE id = ?", this.getBookMapper(), id);
+    public List<Book> findAllBooks(int pageSize, int offset) {
+        return this.jdbcTemplate.query("SELECT * FROM book LIMIT ? OFFSET ?", this.getBookMapper(), pageSize, offset);
     }
 
     @Override
     public List<Book> findAllBooks() {
         return this.jdbcTemplate.query("SELECT * FROM book", this.getBookMapper());
+    }
+
+
+    @Override
+    public Book getById(Long id) {
+        return this.jdbcTemplate.queryForObject("SELECT * FROM book WHERE id = ?", this.getBookMapper(), id);
     }
 
     @Override

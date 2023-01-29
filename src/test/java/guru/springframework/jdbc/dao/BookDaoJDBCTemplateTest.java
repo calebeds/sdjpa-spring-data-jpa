@@ -32,6 +32,30 @@ public class BookDaoJDBCTemplateTest {
     }
 
     @Test
+    void testFindAllBooksPage1() {
+        List<Book> books = this.bookDao.findAllBooks(10, 0);
+
+        assertThat(books).isNotNull();
+        assertThat(books.size()).isEqualTo(10);
+    }
+
+    @Test
+    void testFindAllBooksPage2() {
+        List<Book> books = this.bookDao.findAllBooks(10, 10);
+
+        assertThat(books).isNotNull();
+        assertThat(books.size()).isEqualTo(10);
+    }
+
+    @Test
+    void testFindAllBooksPage10() {
+        List<Book> books = this.bookDao.findAllBooks(10, 100);
+
+        assertThat(books).isNotNull();
+        assertThat(books.size()).isEqualTo(0);
+    }
+
+    @Test
     void testFindAllBooks() {
         List<Book> books = bookDao.findAllBooks();
 
@@ -99,4 +123,5 @@ public class BookDaoJDBCTemplateTest {
             bookDao.getById(saved.getId());
         });
     }
+
 }
