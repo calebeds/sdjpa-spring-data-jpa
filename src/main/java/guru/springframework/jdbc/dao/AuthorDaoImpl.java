@@ -4,7 +4,10 @@ import guru.springframework.jdbc.domain.Author;
 import guru.springframework.jdbc.repositories.AuthorRepository;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 /**
  * Created by jt on 8/28/21.
@@ -16,6 +19,11 @@ public class AuthorDaoImpl implements AuthorDao {
 
     public AuthorDaoImpl(AuthorRepository authorRepository) {
         this.authorRepository = authorRepository;
+    }
+
+    @Override
+    public List<Author> findAllAuthorsByLastNameSortByFirstName(String lastName, Pageable pageable) {
+        return null;
     }
 
     @Override
