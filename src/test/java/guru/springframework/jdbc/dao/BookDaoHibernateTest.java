@@ -45,6 +45,10 @@ public class BookDaoHibernateTest {
 
     @Test
     void testFindAllBooks() {
+        List<Book> books = this.bookDao.findAllBooks(PageRequest.of(0, 10));
+
+        assertThat(books).isNotNull();
+        assertThat(books.size()).isEqualTo(10);
     }
 
     @Test

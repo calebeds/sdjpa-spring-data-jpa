@@ -10,10 +10,10 @@ import org.springframework.data.domain.Pageable;
 import java.util.List;
 
 public class BookDaoHibernate implements BookDao {
-    private final EntityManagerFactory enf;
+    private final EntityManagerFactory emf;
 
-    public BookDaoHibernate(EntityManagerFactory enf) {
-        this.enf = enf;
+    public BookDaoHibernate(EntityManagerFactory emf) {
+        this.emf = emf;
     }
 
     @Override
@@ -23,7 +23,16 @@ public class BookDaoHibernate implements BookDao {
 
     @Override
     public List<Book> findAllBooks(Pageable pageable) {
-        return null;
+        EntityManager em = this.getEntityManager();
+
+        try {
+            TypedQuery<Book> query = em.createQuery("SELECT b FROM Book b", Book.class);
+            query.setFirstResult(Math.toIntExact(pageable.getOffset()));
+            query.setMaxResults(pageable.getPageSize());
+            return query.getResultList();
+        } finally {
+            em.close();
+        }
     }
 
     @Override
@@ -102,6 +111,6 @@ public class BookDaoHibernate implements BookDao {
     }
 
     private EntityManager getEntityManager() {
-        return enf.createEntityManager();
+        return emf.createEntityManager();
     }
 }
