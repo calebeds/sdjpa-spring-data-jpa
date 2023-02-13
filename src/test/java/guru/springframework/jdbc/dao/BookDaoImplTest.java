@@ -25,6 +25,7 @@ class BookDaoImplTest {
 
     @Autowired
     BookDao bookDao;
+
     @Test
     void testFindAllBooksPage1SortByTitle() {
         List<Book> books = this.bookDao.findAllBooksSortByTitle(PageRequest.of(0, 10,
