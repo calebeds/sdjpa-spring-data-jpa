@@ -4,6 +4,7 @@ import guru.springframework.jdbc.domain.Book;
 import guru.springframework.jdbc.repositories.BookRepository;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
@@ -17,22 +18,26 @@ public class BookDaoImpl implements BookDao {
 
     @Override
     public List<Book> findAllBooksSortByTitle(Pageable pageable) {
-        return null;
+        return bookRepository.findAll(pageable).getContent();
     }
 
     @Override
     public List<Book> findAllBooks(Pageable pageable) {
-        return null;
+        return bookRepository.findAll(pageable).getContent();
     }
 
     @Override
     public List<Book> findAllBooks(int pageSize, int offset) {
-        return null;
+        Pageable pageable = PageRequest.ofSize(pageSize);
+
+        pageable = offset > 0 ? pageable.withPage(offset / pageSize) : pageable.withPage(0);
+
+        return this.findAllBooks(pageable);
     }
 
     @Override
     public List<Book> findAllBooks() {
-        return null;
+        return bookRepository.findAll();
     }
 
     @Override
